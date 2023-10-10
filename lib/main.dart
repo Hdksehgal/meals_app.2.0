@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meals_app/data/dummy_data.dart';
@@ -16,7 +17,9 @@ final theme = ThemeData(
 );
 
 void main() {
-  runApp(const App());
+  runApp(const ProviderScope(child: App() ) );
+  // here we have wrapped the whole app with ProviderScope function so that we
+  // can use the provider features throughout the app anywhere in the app
 }
 
 class App extends StatelessWidget {

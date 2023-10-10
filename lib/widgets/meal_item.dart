@@ -6,20 +6,32 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:meals_app/models/meal.dart';
 
 class MealItem extends StatelessWidget {
-  const MealItem({super.key, required this.meal, required this.favouritesManipulator});
-  final Meal meal;
-  final void Function(Meal meal) favouritesManipulator;
+  const MealItem(
+      {
+        super.key,
+        required this.meal,
+        //required this.favouritesManipulator//RYP
+      });
 
-  String get complexityText{
-    return meal.complexity.name[0].toUpperCase() + meal.complexity.name.substring(1);
+  final Meal meal;
+  //final void Function(Meal meal) favouritesManipulator;//RYP
+
+  String get complexityText {
+    return meal.complexity.name[0].toUpperCase() +
+        meal.complexity.name.substring(1);
   }
 
-  String get affordabilityText{
-    return meal.affordability.name[0].toUpperCase() + meal.affordability.name.substring(1);
+  String get affordabilityText {
+    return meal.affordability.name[0].toUpperCase() +
+        meal.affordability.name.substring(1);
   }
 
   void _showDetail(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => MealDetails(meal: meal, favouritesManipulator: favouritesManipulator,)));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (ctx) => MealDetails(
+              meal: meal,
+              //favouritesManipulator: favouritesManipulator,//RYP
+            )));
   }
 
   @override
@@ -38,21 +50,23 @@ class MealItem extends StatelessWidget {
           // one above each other not as in column but directly above
           // each other as setting image as a background of the main text
 
-
           children: [
-            FadeInImage(
-              // it is a utility widget that is being
-              // used to provide a faded in transition to the image
+            Hero(
+              tag: meal.id,
+              child: FadeInImage(
+                // it is a utility widget that is being
+                // used to provide a faded in transition to the image
 
                 placeholder: MemoryImage(kTransparentImage),
                 image: NetworkImage(meal.imageUrl),
                 fit: BoxFit.cover,
-              height: 250,
-              width: double.infinity,
+                height: 250,
+                width: double.infinity,
+              ),
             ),
             Positioned(
-              // this widget is used to position one widget on top another widget
-              // in a stack
+                // this widget is used to position one widget on top another widget
+                // in a stack
 
                 bottom: 0,
                 right: 0,
@@ -81,12 +95,17 @@ class MealItem extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          MealTrait(icon: Icons.timer_sharp, label: '${meal.duration} min'),
+                          MealTrait(
+                              icon: Icons.timer_sharp,
+                              label: '${meal.duration} min'),
                           SizedBox(width: 15),
-                          MealTrait(icon: Icons.attach_money_sharp, label: affordabilityText),
+                          MealTrait(
+                              icon: Icons.attach_money_sharp,
+                              label: affordabilityText),
                           SizedBox(width: 15),
-                          MealTrait(icon: Icons.soup_kitchen_outlined, label: complexityText),
-
+                          MealTrait(
+                              icon: Icons.soup_kitchen_outlined,
+                              label: complexityText),
                         ],
                       )
                     ],
